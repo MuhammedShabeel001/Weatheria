@@ -7,19 +7,33 @@ import 'package:http/http.dart' as http;
 import 'package:weatherio/model/weather_model.dart';
 
 class WeatherService {
-  static const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
-  final String apiKey;
+  // static const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
+  // final String apiKey;
 
-  WeatherService(this.apiKey);
+  // WeatherService(this.apiKey);
 
-  Future<Weather> getWeather(String cityName) async {
-    final Response = await http
-        .get(Uri.parse('$BASE_URL?q=$cityName&appid=$apiKey&units=metric'));
+  // Future<Weather> getWeather(String cityName) async {
+  //   final Response = await http
+  //       .get(Uri.parse('$BASE_URL?q=$cityName&appid=$apiKey&units=metric'));
 
-    if (Response.statusCode == 200) {
-      return Weather.fromJson(jsonDecode(Response.body));
-    } else {
-      throw Exception('Failed to load');
+  //   if (Response.statusCode == 200) {
+  //     return Weather.fromJson(jsonDecode(Response.body));
+  //   } else {
+  //     throw Exception('Failed to load');
+  //   }
+  // }
+
+
+  final String apiurl = 'http://api.openweathermap.org/data/2.5/weather';
+  final String apiKey = '7019850e36da4a7ee49e283c8850d620';
+
+  Future<Weather> getWeather(String cityName)async{
+    final response = await http.get(Uri.parse('$apiurl?q=$cityName&appid=$apiKey&units=metric'));
+
+    if (response.statusCode == 200) {
+      return Weather.fromJson(json.decode(response.body));
+    }else{
+      throw Exception('failed to load weather');
     }
   }
 
